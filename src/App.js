@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useForm } from 'react-hook-form'
+import { Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap'
 
 function App() {
+  const { register, handleSubmit } = useForm()
+
+  function onSubmit(data) {
+    console.log(data)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Row className="d-flex justify-content-center mt-5">
+        <Col sm={4}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <FormGroup className="mb-2">
+              <Label className="mb-2">Email</Label>
+              <Input {...register('email')} placeholder="abc@mail.com" />
+            </FormGroup>
+
+            <FormGroup className="mb-2">
+              <Label className="mb-2">Password</Label>
+              <Input
+                {...register('password')}
+                type="password"
+                placeholder="password"
+              />
+            </FormGroup>
+
+            <Button color="success" className="mt-2">
+              Submit
+            </Button>
+          </Form>
+        </Col>
+      </Row>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
