@@ -4,7 +4,7 @@ import * as yup from 'yup'
 import { ErrorMessage } from '@hookform/error-message'
 import { DevTool } from '@hookform/devtools'
 
-const schema = yup.object().shape({
+const mySchema = yup.object().shape({
   email: yup.string().required().email(),
   password: yup.string().required().min(6).max(10),
 })
@@ -13,10 +13,10 @@ function App() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors: err },
     control,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(mySchema),
   })
 
   function onSubmit(data) {
@@ -36,10 +36,10 @@ function App() {
                 name="email"
                 type="text"
                 {...register('email')}
-                className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                className={`form-control ${err.email ? 'is-invalid' : ''}`}
               />
               <div className="invalid-feedback">
-                <ErrorMessage errors={errors} name="email" />
+                <ErrorMessage errors={err} name="email" />
               </div>
             </div>
 
@@ -49,12 +49,10 @@ function App() {
                 name="password"
                 type="password"
                 {...register('password')}
-                className={`form-control ${
-                  errors.password ? 'is-invalid' : ''
-                }`}
+                className={`form-control ${err.password ? 'is-invalid' : ''}`}
               />
               <div className="invalid-feedback">
-                <ErrorMessage errors={errors} name="password" />
+                <ErrorMessage errors={err} name="password" />
               </div>
             </div>
 
